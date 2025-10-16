@@ -1,0 +1,95 @@
+{% load static %}
+
+{% if messages %}
+	<div class="toast-container position-fixed bottom-0 end-0 p-3">
+		{% for message in messages %}
+			<div class="toast fade show mb-2 text-bg-{% if message.tags == 'error'%}danger{% else %}{{ message.tags }}{% endif %}" role="alert" aria-live="assertive" aria-atomic="true">
+				<div class="toast-header">
+					<strong class="me-auto">{{ message.tags|title }}</strong>
+					<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+				</div>
+				<div class="toast-body">{{ message }}</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endif %}
+
+<!-- Success Toast -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+	<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+		<div class="toast-header">
+			<!-- <img src="" class="rounded me-2" height="25"> -->
+			<strong class="me-auto">To be announced</strong>
+			<!-- <small>11 mins ago</small> -->
+			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+		<div class="toast-body">
+			Stay Tuned!
+		</div>
+	</div>
+</div>
+
+<!-- Toast JS -->
+<script type="text/javascript">	
+	function triggerSuccessToast(title, message) {
+		let div = $('.toast');
+		div.addClass('text-bg-success');
+		if (title) div.find("strong").text(title);
+		if (message) div.find(".toast-body").text(message);
+		const toast = new bootstrap.Toast($('.toast'));
+		toast.show();
+	}
+
+	function triggerErrorToast(title, message) {
+		let div = $('.toast');
+		div.addClass('text-bg-danger');
+		if (title) div.find("strong").text(title);
+		if (message) div.find(".toast-body").text(message);
+		const toast = new bootstrap.Toast($('.toast'));
+		toast.show();
+	}
+
+	function triggerWarningToast(title, message) {
+		let div = $('.toast')
+		div.addClass('text-bg-warning');
+		if (title) div.find("strong").text(title)
+		if (message) div.find(".toast-body").text(message)
+		const toast = new bootstrap.Toast($('.toast'))
+		toast.show()
+	}
+
+	function triggerInfoToast(title, message) {
+		let div = $('.toast')
+		div.addClass('text-bg-info');
+		if (title) div.find("strong").text(title)
+		if (message) div.find(".toast-body").text(message)
+		const toast = new bootstrap.Toast($('.toast'))
+		toast.show()
+	}
+</script>
+
+<!-- Clipboard JS -->
+<script type="text/javascript">
+	function unsecuredCopyToClipboard(text, title="Clipboard", message="") {
+		const textArea = document.getElementById("clipboardTextarea");
+		textArea.value = text;
+		// document.body.appendChild(textArea);
+		textArea.focus();
+		textArea.select();
+		try {
+			document.execCommand('copy');
+			triggerWarningToast(title, message);
+		} catch (error) {
+			triggerErrorToast(title, error);
+		}
+	}
+
+	function CopyToClipboard(text, title="Clipboard", message="") {
+		if (window.isSecureContext && navigator.clipboard) {
+			navigator.clipboard.writeText(text);
+			triggerWarningToast(title, message);
+		} else {
+			unsecuredCopyToClipboard(text, message);
+		}
+	}
+</script>

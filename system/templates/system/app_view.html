@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+	<div class="call_do_action bg_color2 pt-20" style="background-image: url("{% static 'template/images/glob-bg.png)' %}">
+		<div class="container">
+			<div class="row d-flex align-items-center">
+				<div class="col-lg-6">
+					<div class="section_title text_left mb-40 mt-3">
+						<div class="section_sub_title uppercase mb-3">
+							<h6>Мій НУВГП</h6>
+						</div>
+						<div class="section_main_title">
+							<h1>Мобільний додаток для студентів та викладачів НУВГП.</h1>
+						</div>
+					</div>
+					<div class="call_do_action_button">
+						<div class="button two">
+							<a href="https://play.google.com/store/apps/details?id=com.m_myr.nuwm.nuwmschedule&hl=uk">
+								<i class="fa-brands fa-google-play"></i>
+								Android
+							</a>
+							<a href="https://apps.apple.com/us/app/%D0%BC%D1%96%D0%B9-%D0%BD%D1%83%D0%B2%D0%B3%D0%BF/id6444663146?platform=iphone">
+								<i class="fa-brands fa-app-store-ios mr-1"></i>
+								iOS
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="acction_thumb">
+						<img src="{% static 'template/images/shape2.png' %}" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}{% endblock %}

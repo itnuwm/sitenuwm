@@ -1,0 +1,7 @@
+{% if page.parent %}
+    {% include 'pages/breadcrumb.html' with page=page.parent %}
+{% endif %}
+
+<li class="breadcrumb-item">
+    <a class="link-body-emphasis fw-semibold text-decoration-none" href="/{{ page }}">{{ page.title|default:'Головна' }}</a>
+</li>

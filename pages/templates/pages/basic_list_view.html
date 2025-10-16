@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+	<div class="blog_area blog-grid left-sidebar pb-80" id="blog">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<nav aria-label="breadcrumb" class="mb-4">
+						<ol class="breadcrumb bg-white px-3 py-2 rounded shadow-sm">
+							<li class="breadcrumb-item">
+								<a href="/"><i class="fa fa-home"></i> Головна</a>
+							</li>
+							{% if page.parent %}
+								{% include 'pages/breadcrumb.html' with page=page.parent %}
+							{% endif %}
+							<li class="breadcrumb-item active" aria-current="page">
+								{{ page.title }}
+							</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 sidebar-right content-widget pdsr">
+					{% include 'pages/sidebar.html' %}
+				</div>
+
+				<div class="col-lg-8 col-md-7 col-sm-12 col-xs-12">
+					<div class="row">
+						<div class="col">
+							{% if perms.pages.add %}
+								{% if page.parent_id %}
+									<small>
+										<a class="text-muted" href="{% url 'page:add_url' pk=page.id %}">
+											<i class="fa fa-plus-circle"></i>
+											Додати сторінку
+										</a>
+									</small>
+								{% endif %}
+							{% endif %}
+						</div>
+					</div>
+					
+					<h3 class="mb-3">{{ page.title }}</h3>
+                    {% for child in page.children.all %}
+                        <div>
+                            <a href="{{ child.get_detail_url }}">
+                                <i class="fa fa-chevron-right"></i>
+                                {{ child.title }}
+                            </a>
+                        </div>
+                    {% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}{% endblock %} 

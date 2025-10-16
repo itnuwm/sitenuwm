@@ -1,0 +1,25 @@
+<div class="blog-left-side widget">
+	<div class="widget widget_categories">
+        {% if page.sidebar_edited %}
+            <h2 class="widget-title" style="text-transform: none;">{{ page.parent.title }}</h2>
+            <ul>
+                {% for child in page.parent.children.all %}
+                    <li class="cat-item cat-item-10 mb-0 pb-1">
+                        <a class="{% if child.id == page.id %}text-info{% endif %}" href="{{ child.get_detail_url }}">{{ child.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h2 class="widget-title" style="text-transform: none;">{{ page.title }}</h2>
+            <ul>
+                {% for child in page.children.all %}
+                    <li class="cat-item cat-item-10 mb-0 pb-1">
+                        <a href="{{ child.get_detail_url }}">{{ child.title }}</a>
+                    </li>
+                {% endfor %}
+		    </ul>
+        {% endif %}
+	</div>
+</div> 
+
+

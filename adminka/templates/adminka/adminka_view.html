@@ -1,0 +1,287 @@
+{% extends 'adminka/base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    .fit {
+        width: 1px;
+        white-space: nowrap;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb pt-3 rounded-3">
+        <li class="breadcrumb-item">
+            <a class="link-body-emphasis" href="/adminka/"><i class="fa fa-home"></i></a>
+        </li>
+        {% if page.parent %}
+            {% include 'adminka/breadcrumb.html' with page=page.parent %}
+        {% endif %}
+        <li class="breadcrumb-item active" aria-current="page">{{ page.title }}</li>
+    </ol>
+</nav>
+<hr class="my-0">
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">{{ page.title|default:'Головна' }}</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'adminka:export_pages_url' %}"> Export </a>
+        </div>
+        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
+            <i class="fa-solid fa-calendar-week"></i>
+            This week
+        </button>
+    </div>
+</div>
+
+<div class="table-responsive small">
+    <table class="table table-hover table-sm">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col" style="min-width: 100px;">Slug</th>
+                <th scope="col" style="min-width: 100px;">Design</th>
+                <th scope="col" style="min-width: 100px;">Admin</th>
+                <th class="fit" scope="col"></th>
+                <th class="fit" scope="col"></th>
+                <th class="fit" scope="col"></th>
+                <th class="fit" scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if page %}
+                <tr>
+                    <td>{{ page.id }}</td>
+                    <td>{{ page.title }}</td>
+                    <td>
+                        <form action="{% url 'adminka:slug_edit_url' pk=page.id %}" method="post">
+                            {% csrf_token %}
+                            <!-- <input class="form-control form-control-sm" type="text" name="slug" value="{{ child.slug }}" onchange="this.form.submit()"> -->
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" name="slug" value="{{ page.slug }}" onchange="this.form.submit()" disabled>
+                                <button class="btn btn-outline-secondary" type="button" onclick="toggleSlugInput(this)">
+                                    <i class="fa-solid fa-lock"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{% url 'adminka:design_edit_url' pk=page.id %}" method="post">
+                            {% csrf_token %}
+                            <select class="form-select form-select-sm" name="design" onchange="this.form.submit()">
+                                {% for design in page.DESIGN_CHOICES %}
+                                    <option value="{{ design.0 }}" {% if page.design == design.0 %}selected{% endif %}>{{ design.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{% url 'adminka:admin_edit_url' pk=page.id %}" method="post">
+                            {% csrf_token %}
+                            <input class="form-control form-control-sm" type="text" name="admin" value="{{ page.admin|default:'' }}" onchange="this.form.submit()">
+                        </form>
+                    </td>
+                    <td class="fit">
+                        <button class="btn btn-outline-secondary btn-sm" type="button" value="{{ page.content }}" onclick="CopyToClipboard(this.value, title='Clipboard', message='Текст сторінки збережено в буфер обміну')">
+                            <nobr>
+                                <i class="fa-solid fa-copy"></i>
+                                Content
+                            </nobr>
+                        </button>
+                    </td>
+                    <td class="fit">
+                        <a class="btn btn-outline-secondary btn-sm" href="{{ page.get_edit_url }}" target="_blank">
+                            <nobr>
+                                <i class="fa-solid fa-pencil"></i>
+                                Edit
+                            </nobr>
+                        </a>
+                    </td>
+                    <td class="fit">
+                        <a class="btn btn-outline-secondary btn-sm" href="{{ page.get_detail_url }}/">
+                            <nobr>
+                                <i class="fa-solid fa-eye"></i>
+                                View
+                            </nobr>
+                        </a>
+                    </td>
+                    <td class="fit">
+                        <a class="btn btn-outline-danger btn-sm" onclick="if (confirm('Ви впевнені, що хочете видалити цю сторінку?')) { window.location.href = '{% url 'adminka:delete_url' pk=page.id %}'; }">
+                            <nobr>
+                                <i class="fa-solid fa-trash"></i>
+                                Delete
+                            </nobr>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="9" class="pt-4 mt-4">
+                        <h4>Дочірні сторінки:</h4>
+                    </th>
+                </tr>
+
+                {% for child in page.children.all %}
+                    <tr>
+                        <td>{{ child.id }}</td>
+                        <td><a href="/adminka/{{ child }}/">{{ child.title }}</a></td>
+                        <td>
+                            <form action="{% url 'adminka:slug_edit_url' pk=child.id %}" method="post">
+                                {% csrf_token %}
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" name="slug" value="{{ child.slug }}" onchange="this.form.submit()" disabled>
+                                    <button class="btn btn-outline-secondary" type="button" onclick="toggleSlugInput(this)">
+                                        <i class="fa-solid fa-lock"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{% url 'adminka:design_edit_url' pk=child.id %}" method="post">
+                                {% csrf_token %}
+                                <select class="form-select form-select-sm" name="design" onchange="this.form.submit()">
+                                    {% for design in child.DESIGN_CHOICES %}
+                                        <option value="{{ design.0 }}" {% if child.design == design.0 %}selected{% endif %}>{{ design.1 }}</option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="{% url 'adminka:admin_edit_url' pk=child.id %}" method="post">
+                                {% csrf_token %}
+                                <input class="form-control form-control-sm" type="text" name="admin" value="{{ child.admin|default:'' }}" onchange="this.form.submit()">
+                            </form>
+                        </td>
+                        <td class="fit">
+                            <button class="btn btn-outline-secondary btn-sm" type="button" value="{{ child.content }}" onclick="CopyToClipboard(this.value, title='Clipboard', message='Текст сторінки збережено в буфер обміну')">
+                                <nobr>
+                                    <i class="fa-solid fa-copy"></i>
+                                    Content
+                                </nobr>
+                            </button>
+                        </td>
+                        <td class="fit">
+                            <a class="btn btn-outline-secondary btn-sm" href="{{ child.get_edit_url }}" target="_blank">
+                                <nobr>
+                                    <i class="fa-solid fa-pencil"></i>
+                                    Edit
+                                </nobr>
+                            </a>
+                        </td>
+                        <td class="fit">
+                            <a class="btn btn-outline-secondary btn-sm" href="{{ child.get_detail_url }}/">
+                                <nobr>
+                                    <i class="fa-solid fa-eye"></i>
+                                    View
+                                </nobr>
+                            </a>
+                        </td>
+                        <td class="fit">
+                            <a class="btn btn-outline-danger btn-sm" onclick="if (confirm('Ви впевнені, що хочете видалити цю сторінку?')) { window.location.href = '{% url 'adminka:delete_url' pk=child.id %}'; }">
+                                <nobr>
+                                    <i class="fa-solid fa-trash"></i>
+                                    Delete
+                                </nobr>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <form method="post" action="{% url 'adminka:add_url' %}">
+                        {% csrf_token %}
+                        <td>{{ form.parent }}</td>
+                        <td>{{ form.title }}</td>
+                        <td>{{ form.slug }}</td>
+                        <td>{{ form.design }}</td>
+                        <td>{{ form.admin }}</td>
+
+                        <td class="fit" colspan="4">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-outline-success btn-sm">
+                                    <i class="fa fa-save"></i>
+                                    Save
+                                </button>
+                            </div>
+                        </td>
+                    </form>
+                </tr>
+
+
+
+
+
+
+
+
+            {% else %}
+                {% for child in children %}
+                    <tr>
+                        <td>{{ child.id }}</td>
+                        <td><a href="/adminka/{{ child.slug }}/">{{ child.title }}</a></td>
+                        <td>{{ child.slug }}</td>
+                        <td>{{ child.design }}</td>
+                        <td>{{ child.admin|default:'' }}</td>
+                        <td class="fit"></td>
+                        <td class="fit"></td>
+                        <td class="fit"></td>
+                        <td class="fit">
+                            <a class="btn btn-outline-secondary btn-sm" href="{{ child.get_edit_url }}" target="_blank">
+                                <nobr>
+                                    <i class="fa-solid fa-pencil"></i>
+                                    Edit
+                                </nobr>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <form method="post" action="{% url 'adminka:add_url' %}">
+                        {% csrf_token %}
+                        <td>{{ form.parent }}</td>
+                        <td>{{ form.title }}</td>
+                        <td>{{ form.slug }}</td>
+                        <td>{{ form.design }}</td>
+                        <td>{{ form.admin }}</td>
+                        <td class="fit"></td>
+                        <td class="fit"></td>
+                        <td class="fit"></td>
+                        <td class="fit">
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-outline-success btn-sm">
+                                    <i class="fa fa-save"></i>
+                                    Save
+                                </button>
+                            </div>
+                        </td>
+                    </form>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+<div class="my-5"></div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        function toggleSlugInput(button) {
+            const form = button.closest('form');
+            const slugInput = form.querySelector('input[name="slug"]');
+            const icon = button.querySelector('i');
+            
+            if (slugInput.disabled) {
+                // Enable the input
+                slugInput.removeAttribute('disabled');
+                icon.className = 'fa-solid fa-lock-open';
+            } else {
+                // Disable the input
+                slugInput.setAttribute('disabled', 'disabled');
+                icon.className = 'fa-solid fa-lock';
+            }
+        }
+    </script>
+{% endblock %}

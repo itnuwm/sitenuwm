@@ -1,0 +1,102 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Національний Університет Водного Господарства та Природокористування</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="56x56" href="{% static 'template/images/favicon.ico' %}"/>
+    <!-- bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'template/assets/css/bootstrap.min.css' %}" type="text/css" media="all"/>
+    <!-- carousel CSS -->
+    <link rel="stylesheet" href="{% static 'template/assets/css/owl.carousel.min.css' %}" type="text/css" media="all"/>
+    <!-- nivo-slider CSS -->
+    <link rel="stylesheet" href="{% static 'template/assets/css/nivo-slider.css' %}" type="text/css" media="all"/>
+    <!-- animate CSS -->
+    <link rel="stylesheet" href="{% static 'template/assets/css/animate.css' %}" type="text/css" media="all"/>
+    <!-- animated-text CSS -->
+    <link rel="stylesheet" href="{% static 'template/assets/css/animated-text.css' %}" type="text/css" media="all"/>
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <!-- font-flaticon CSS -->
+    <link rel="stylesheet" href="{% static 'template/assets/css/flaticon.css' %}" type="text/css" media="all"/>
+    <!-- theme-default CSS -->
+    <link rel="stylesheet" href="{% static 'template/assets/css/theme-default.css' %}" type="text/css" media="all"/>
+    <!-- meanmenu CSS -->
+    <link rel="stylesheet" href="{% static 'template/assets/css/meanmenu.min.css' %}" type="text/css" media="all"/>
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="{% static 'template/assets/css/style.css' %}" type="text/css" media="all" />
+    <!-- transitions CSS -->
+    <link rel="stylesheet" href="{% static 'template/assets/css/owl.transitions.css' %}" type="text/css" media="all"/>
+    <!-- venobox CSS -->
+    <link rel="stylesheet" href="{% static 'template/venobox/venobox.css' %}" type="text/css" media="all"/>
+    <!-- widget CSS -->
+    <link rel="stylesheet" href="{% static 'template/assets/css/widget.css' %}" type="text/css" media="all"/>
+    <!-- responsive CSS -->
+    <link rel="stylesheet" href="{% static 'template/assets/css/responsive.css' %}" type="text/css" media="all"/>
+    <!-- modernizr js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+    <!-- bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    {% block css %}{% endblock %}
+  </head>
+  <body>
+    <!-- Loder Start-->
+    <div class="loader-wrapper">
+      <div class="loader"></div>
+      <div class="loder-section left-section"></div>
+      <div class="loder-section right-section"></div>
+    </div>
+    <!-- Loder End -->
+
+    {% include 'maintain.html' %}
+    {% include 'header.html' %}
+    {% include 'navbar.html' %}
+    <!-- {% include 'toasts.html' % -->
+    {% block content %}{% endblock %}
+    {% include 'footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <!-- jquery js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/vendor/jquery-3.2.1.min.js' %}"></script>
+    <!-- bootstrap js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/bootstrap.min.js' %}"></script>
+    <!-- carousel js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/owl.carousel.min.js' %}"></script>
+    <!-- counterup js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/jquery.counterup.min.js' %}"></script>
+    <!-- waypoints js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/waypoints.min.js' %}"></script>
+    <!-- wow js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/wow.js' %}"></script>
+    <!-- imagesloaded js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/imagesloaded.pkgd.min.js' %}"></script>
+    <!-- venobox js -->
+    <script type="text/javascript" src="{% static 'template/venobox/venobox.js' %}"></script>
+    <!-- ajax mail js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/ajax-mail.js' %}"></script>
+    <!--  testimonial js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/testimonial.js' %}"></script>
+    <!--  animated-text js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/animated-text.js' %}"></script>
+    <!-- venobox min js -->
+    <script type="text/javascript" src="{% static 'template/venobox/venobox.min.js' %}"></script>
+    <!-- isotope js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/isotope.pkgd.min.js' %}"></script>
+    <!-- jquery nivo slider pack js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/jquery.nivo.slider.pack.js' %}"></script>
+    <!-- jquery meanmenu js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/jquery.meanmenu.js' %}"></script>
+    <!-- jquery scrollup js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/jquery.scrollUp.js' %}"></script>
+    <!-- theme js -->
+    <script type="text/javascript" src="{% static 'template/assets/js/theme.js' %}"></script>
+    {% block javascript %}{% endblock %}
+  </body>
+</html>

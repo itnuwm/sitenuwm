@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    .fit {
+        width: 1px;
+        white-space: nowrap;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+	<div class="blog_area blog-grid left-sidebar pb-80" id="blog">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 sidebar-right content-widget pdsr">
+					{% include 'pages/sidebar.html' %}
+				</div>
+
+				<div class="col-lg-8 col-md-7 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <nav aria-label="breadcrumb" class="mb-4">
+                                <ol class="breadcrumb bg-white px-3 py-2 rounded shadow-sm">
+                                    <li class="breadcrumb-item">
+                                        <a href="/"><i class="fa fa-home"></i> Головна</a>
+                                    </li>
+                                    {% if page.parent %}
+                                        {% include 'pages/breadcrumb.html' with page=page.parent %}
+                                    {% endif %}
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        {{ page.title }}
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <h3 class="mb-3">Редагування сторінки</h3>
+					{{ form.media }}
+					<form method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+                        {% for field in form %}
+                            {% if field.is_hidden %}
+                                {{ field }}
+                            {% elif field.name == 'wallpaper' %}
+                                <label class="form-label text-primary" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                <input type="file" name="{{ field.name }}" class="form-control-file" accept="image/*" id="{{ field.id_for_label }}">
+                                <div class="d-grid mt-2 mb-3">
+                                    {% if field.value %}
+                                        <input type="checkbox" name="wallpaper-clear" id="wallpaper-clear_id" class="form-check-input" hidden>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="document.getElementById('wallpaper-clear_id').checked = true; this.closest('form').submit();"><i class="bi bi-trash"></i></button>
+                                        
+                                        <a class="btn btn-outline-primary btn-sm" href="{{ field.value.url }}">
+                                            <i class="bi bi-image"></i> Переглянути зображення
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            {% else %}
+                                <div class="form-group">
+                                    <label class="text-primary" for="{{ field.id_for_label }}">
+                                        {{ field.label }}
+                                    </label>
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                    {% for error in field.errors %}
+                                        <div class="text-danger">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+
+                        <h4>Таблиця:</h4>
+                        <div class="row">
+                            <div class="col">
+                                {{ rows.management_form }}
+                                <table class="table table-sm table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>col1</th>
+                                            <th>col2</th>
+                                            <th>col3</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for form in rows %}
+                                            <tr>
+                                                {% for field in form %}
+                                                    <td>
+                                                        {% if field.field.widget.input_type == 'checkbox' %}
+                                                            {% if form.instance.id %}
+                                                                <input type="checkbox" name="rows-{{ forloop.parentloop.counter0 }}-DELETE" id="id_rows-{{ forloop.parentloop.counter0 }}-DELETE" hidden>
+                                                                <button class="btn btn-danger btn-sm" name="redirect" value="false" type="submit" onclick="document.getElementById('id_rows-{{ forloop.parentloop.counter0 }}-DELETE').checked = true;"><i class="bi bi-trash"></i></button>
+                                                            {% else %}
+                                                                <button class="btn btn-success btn-sm" name="redirect" value="false" type="submit"><i class="fa fa-save"></i></button>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            {{ field }}
+                                                            {% for error in field.errors %}
+                                                                <div class="text-danger">{{ error }}</div>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                    </td>
+                                                {% endfor %}
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <h4>Документи:</h4>
+                        <div class="row">
+                            <div class="col">
+                                {{ docs.management_form }}
+                                <table class="table table-sm table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Заголовок</th>
+                                            <th>Посилання</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for form in docs %}
+                                            <tr>
+                                                {% for field in form %}
+                                                <td>
+                                                    {% if field.field.widget.input_type == 'checkbox' %}
+                                                        {% if form.instance.id %}
+                                                            <input type="checkbox" name="docs-{{ forloop.parentloop.counter0 }}-DELETE" id="id_docs-{{ forloop.parentloop.counter0 }}-DELETE" hidden>
+                                                            <button class="btn btn-danger btn-sm" name="redirect" value="false" type="submit" onclick="document.getElementById('id_docs-{{ forloop.parentloop.counter0 }}-DELETE').checked = true;"><i class="bi bi-trash"></i></button>
+                                                        {% else %}
+                                                            <button class="btn btn-success btn-sm" name="redirect" value="false" type="submit"><i class="fa fa-save"></i></button>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        {{ field }}
+                                                        {% for error in field.errors %}
+                                                            <div class="text-danger">{{ error }}</div>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </td>
+                                                {% endfor %}
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+						<button type="submit" class="btn btn-primary mt-4 float-right">Зберегти</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}{% endblock %} 

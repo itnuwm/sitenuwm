@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+	<!--==================================================-->
+	<!----- Start Slider ----->
+	<!--==================================================-->
+	<div class="nivo_slider_area" id="home">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="em-nivo-slider-wrapper kc-elm kc-css-242493">
+					<div id="mainSlider" class="nivoSlider em-slider-image">
+						{% for slider in sliders %}
+							<img src="{{ slider.image.url }}" title="#htmlcaption{{ forloop.counter }}">
+						{% endfor %}
+					</div>
+					{% for slider in sliders %}
+						asd
+						<!-- slider {{ forloop.counter }} start -->
+						<div id="htmlcaption{{ forloop.counter }}" class="nivo-html-caption em-slider-content-nivo">
+							<div class="em_slider_inner container text-left">
+								<!--slider title -->
+								<div class="wow slideInLeft" data-wow-duration="2s" data-wow-delay="0s">
+									<h1 class="em-slider-main-title">{{ slider.title }}</h1>
+								</div>
+								<!--slider description -->
+								{% if slider.description %}
+									<div class="wow fadeInUpBig" data-wow-duration="2s" data-wow-delay="0s">
+										<p class="em-slider-descript">{{ slider.description }}</p>
+									</div>
+								{% endif %}
+								<!--slider buttons -->
+								<div class="em-slider-button wow mt-4 bounceInUp em-button-button-area" data-wow-duration="3s" data-wow-delay="0.5s">
+									{% if slider.button_1 and slider.url_1 %}
+										<a class="em-active-button" href="{{ slider.url_1 }}">{{ slider.button_1 }}</a>
+									{% endif %}
+									{% if slider.button_2 and slider.url_2 %}
+										<a class="em-active-button" href="{{ slider.url_2 }}">{{ slider.button_2 }}</a>
+									{% endif %}
+									{% if slider.button_3 and slider.url_3 %}
+										<a class="em-active-button" href="{{ slider.url_3 }}">{{ slider.button_3 }}</a>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+						<!-- end slider {{ forloop.counter }} -->
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--==================================================-->
+	<!----- Start News ----->
+	<!--==================================================-->
+	<div class="blog_area pt-85 pb-65">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9">
+					<div class="section_title text_left mb-60 mt-3">
+						<div class="section_sub_title uppercase mb-3">
+							<h6>Будь у ритмі новин</h6>
+						</div>
+						<div class="section_main_title">
+							<h1>Новини</h1>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="section_button mt-50">
+						<div class="button two">
+							<a href="/nuwm/news/">Переглянути</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				{% for page in news %}
+					<div class="col-lg-4 col-md-6 col-sm-12">
+						<div class="single_blog mb-4">
+							<div class="single_blog_thumb pb-4">
+								<a href="{{ page.get_detail_url }}">
+									{% if page.wallpaper %}
+										<img src="{{ page.wallpaper.url }}" alt="">
+									{% else %}
+										<img src="https://dummyimage.com/1600x900/dee2e6/6c757d.jpg" alt="">
+									{% endif %}
+								</a>
+							</div>
+							<div class="single_blog_content pl-4 pr-4">
+								<!-- <div class="techno_blog_meta">
+									<a href="#">{{ page.get_type|title }}</a>
+									<span class="meta-date pl-3">{{ page.timestamp|date:"d.m.Y" }}</span>
+								</div> -->
+								<div class="blog_page_title pb-1">
+									<h3>
+										<a href="{{ page.get_detail_url }}">{{ page.title }}</a>
+									</h3>
+								</div>
+								<div class="blog_description">
+									<p> {{ page.body|striptags|truncatechars:100 }} </p>
+								</div>
+								<div class="blog_page_button pb-4">
+									<a href="{{ page.get_detail_url }}">Читати далі <i class="fa fa-long-arrow-right"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	
+	<!--==================================================-->
+	<!----- Start Contacts ----->
+	<!--==================================================-->
+	<div class="contact_address_area pt-80 pb-70" id="contacts">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section_title text_center mb-55">
+						<div class="section_main_title">
+							<h1>Контактна інформація</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<div class="single_contact_address text_center mb-30 pt-2" style="min-height: 180px">
+						<div class="contact_address_title pb-2">
+							<h4>Приймальна комісія</h4>
+						</div>
+						<div class="contact_address_text">
+							<a href="tel:+380362633222">+38 (0362) 633222</a>
+						</div>
+						<div class="contact_address_text">
+							<a href="tel:+380631208247">+38 (063) 1208247</a>
+						</div>
+						<div class="contact_address_text">
+							<a href="tel:+380684778366">+38 (068) 4778366</a>
+						</div>
+						<div class="contact_address_text">
+							<a  href="mailto:rc@nuwm.edu.ua">rc@nuwm.edu.ua</a>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="single_contact_address text_center mb-30" style="min-height: 180px">
+						<div class="contact_address_icon pb-3">
+							<i class="fa-solid fa-school"></i>
+						</div>
+						<div class="contact_address_title pb-2">
+							<h4>Приймальна ректора</h4>
+						</div>
+						<div class="contact_address_text">
+							<a href="tel:+380362633098">+38 (0362) 633098</a>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="single_contact_address text_center mb-30" style="min-height: 180px">
+						<div class="contact_address_title pb-2">
+							<h4>Центр аспірантури та докторантури</h4>
+						</div>
+						<div class="contact_address_text">
+							<a href="mailto:aspdoc@nuwm.edu.ua">aspdoc@nuwm.edu.ua</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<div class="single_contact_address text_center mb-30 pt-3" style="min-height: 200px">
+						<div class="contact_address_title pb-2">
+							<h4>Кафедра військової підготовки</h4>
+						</div>
+						<div class="contact_address_text">
+							<a href="tel:+380974739722">+38 (097) 4739722</a>
+						</div>
+						<div class="contact_address_text">
+							<a href="tel:+380680522173">+38 (068) 0522173</a>
+						</div>
+						<div class="contact_address_text">
+							<a href="mailto:kaf-vp@nuwm.edu.ua">kaf-vp@nuwm.edu.ua</a>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="single_contact_address text_center mb-30 pt-3" style="min-height: 200px">
+						<div class="contact_address_title pb-2">
+							<h4>Інститут післядипломної освіти</h4>
+						</div>
+						<div class="contact_address_text">
+							<a href="tel:+380362633968">+38 (0362) 633968</a>
+						</div>
+						<div class="contact_address_text">
+							<a href="mailto:ipo@nuwm.edu.ua">ipo@nuwm.edu.ua</a>
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="single_contact_address text_center mb-30 pt-0" style="min-height: 200px">
+						<div class="contact_address_title pb-2">
+							<h4>Підготовче відділення (підготовка до НМТ та творчих іспитів)</h4>
+						</div>
+						<div class="contact_address_text">
+							<a href="tel:+380981745588">+38 (098) 1745588</a>
+						</div>
+						<div class="contact_address_text">
+							<a href="tel:+380964569554">+38 (096) 4569554</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}{% endblock %}

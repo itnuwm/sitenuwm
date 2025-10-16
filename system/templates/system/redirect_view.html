@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+	<div class="error_page_area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-2"></div>
+				<div class="col-lg-8">
+					<div class="single_error">
+						<div class="single_error_inner">
+							<h2>Ви переходите на зовнішній ресурс</h2>
+							<p>
+								Ви переходите на зовнішній ресурс. Національний університет водного господарства 
+								та природокористування не несе відповідальності за зміст зовнішніх сайтів. 
+								Якщо ви не хочете покидати наш сайт, натисніть кнопку "Назад" у вашому браузері.
+							</p>
+							<div class="single_error_button">
+								<a href="{{ redirect_url }}">{{ redirect_url }}</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}{% endblock %}
+

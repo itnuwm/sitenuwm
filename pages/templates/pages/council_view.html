@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    .tinymce-content-wrapper {
+        /* Complete isolation */
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+    }
+    
+    .tinymce-content-wrapper * {
+        /* Reset all inherited styles */
+        all: revert;
+        box-sizing: border-box;
+    }
+    
+    /* Ensure Bootstrap accordion still works */
+    .accordion .collapse,
+    .accordion .collapsing {
+        position: relative !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+	<div class="blog_area blog-grid left-sidebar pb-80" id="blog">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<nav aria-label="breadcrumb" class="mb-4">
+						<ol class="breadcrumb bg-white px-3 py-2 rounded shadow-sm">
+							<li class="breadcrumb-item">
+								<a href="/"><i class="fa fa-home"></i> Головна</a>
+							</li>
+							{% if page.parent %}
+								{% include 'pages/breadcrumb.html' with page=page.parent %}
+							{% endif %}
+							<li class="breadcrumb-item active" aria-current="page">
+								{{ page.title }}
+							</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 sidebar-right content-widget pdsr">
+					{% include 'pages/sidebar.html' %}
+				</div>
+
+				<div class="col-lg-8 col-md-7 col-sm-12 col-xs-12">
+					{% if page.admin == user or user.is_superuser %}
+						<small>
+							<a class="text-muted" href="{{ page.get_edit_url }}">
+							<i class="fa fa-edit"></i>
+								Редагувати сторінку
+							</a>
+						</small>
+					{% endif %}
+
+					<h3 class="mb-3">{{ page.title }}</h3>
+					<div class="mb-3">
+                        <div class="tinymce-content-wrapper" style="position: relative; z-index: 1; overflow: hidden;">
+							<div class="tinymce-inner-content" style="position: relative; z-index: 1;">
+								{{ page.content|safe }}
+							</div>
+						</div>
+                    </div>
+
+					<p class="btn-group mb-3" role="group">
+						<button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+							Оголошення
+						</button>
+						<button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							Склад
+						</button>
+					</p>
+
+					<div id="accordionExample">
+						<div class="collapse show" id="collapseOne" data-parent="#accordionExample">
+							<div class="card card-body">
+                                {% for child in page.children.all %}
+                                    <div>
+                                        <a href="{{ child.get_detail_url }}">
+                                            <i class="fa fa-chevron-right"></i>
+                                            {{ child.title }}
+                                        </a>
+                                    </div>
+                                {% endfor %}
+
+                                {% if perms.pages.add %}
+                                    {% if page.parent_id %}
+                                        <div>
+                                            <a class="text-muted" href="{% url 'page:add_url' pk=page.id %}">
+                                                <i class="fa fa-plus"></i>
+                                                Нове оголошення
+                                            </a>
+                                        </div>
+                                    {% endif %}
+							    {% endif %}
+							</div>
+						</div>
+					
+						<div class="collapse" id="collapseTwo" data-parent="#accordionExample">
+							<div class="card card-body">
+                                <table class="table table-borderless table-sm">
+									<thead>
+										<tr>
+											<th>ПІБ</th>
+											<th>Посада</th>
+                                            <th></th>
+										</tr>
+									</thead>
+									<tbody>
+                                        {% for row in page.rows.all %}
+                                            <tr>
+                                                <td>{{ row.col1 }}</td>
+                                                <td>{{ row.col2 }}</td>
+                                                <td>{{ row.col3 }}</td>
+                                            </tr>
+                                        {% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

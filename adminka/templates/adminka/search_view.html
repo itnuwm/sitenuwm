@@ -1,0 +1,63 @@
+{% extends 'adminka/base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    .fit {
+        width: 1px;
+        white-space: nowrap;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Пошук: {{ q }}</h1>
+</div>
+
+<div class="table-responsive small">
+    <table class="table table-hover table-sm">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Parent</th>
+                <th scope="col">Design</th>
+                <th scope="col">Admin</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for page in pages %}
+                <tr>
+                    <td>{{ page.id }}</td>
+                    <td><a href="/adminka/{{ page }}/">{{ page.title }}</a></td>
+                    <td>{{ page.parent.title }}</td>
+                    <td>{{ page.design }}</td>
+                    <td>{{ page.admin|default:'' }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="my-5"></div>
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        function toggleSlugInput(button) {
+            const form = button.closest('form');
+            const slugInput = form.querySelector('input[name="slug"]');
+            const icon = button.querySelector('i');
+            
+            if (slugInput.disabled) {
+                // Enable the input
+                slugInput.removeAttribute('disabled');
+                icon.className = 'fa-solid fa-lock-open';
+            } else {
+                // Disable the input
+                slugInput.setAttribute('disabled', 'disabled');
+                icon.className = 'fa-solid fa-lock';
+            }
+        }
+    </script>
+{% endblock %}

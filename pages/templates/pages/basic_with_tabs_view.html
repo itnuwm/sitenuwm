@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    .tinymce-content-wrapper {
+        /* Complete isolation */
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+    }
+    
+    .tinymce-content-wrapper * {
+        /* Reset all inherited styles */
+        all: revert;
+        box-sizing: border-box;
+    }
+    
+    /* Ensure Bootstrap accordion still works */
+    .accordion .collapse,
+    .accordion .collapsing {
+        position: relative !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+	<div class="blog_area blog-grid left-sidebar pb-80" id="blog">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<nav aria-label="breadcrumb" class="mb-4">
+						<ol class="breadcrumb bg-white px-3 py-2 rounded shadow-sm">
+							<li class="breadcrumb-item">
+								<a href="/"><i class="fa fa-home"></i> Головна</a>
+							</li>
+							{% if page.parent %}
+								{% include 'pages/breadcrumb.html' with page=page.parent %}
+							{% endif %}
+							<li class="breadcrumb-item active" aria-current="page">
+								{{ page.title }}
+							</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 sidebar-right content-widget pdsr">
+					{% include 'pages/sidebar.html' %}
+				</div>
+
+				<div class="col-lg-8 col-md-7 col-sm-12 col-xs-12">
+					{% if page.admin == user or user.is_superuser %}
+						<small>
+							<a class="text-muted" href="{{ page.get_edit_url }}">
+							<i class="fa fa-edit"></i>
+								Редагувати сторінку
+							</a>
+						</small>
+					{% endif %}
+
+					<h3 class="mb-3">{{ page.title }}</h3>
+					<div class="mb-3">
+                        <a href="tel:{{ page.phone }}">
+                            <i class="fas fa-phone-alt"></i>
+                            {{ page.phone|default:'+38 (0362) 633209' }}
+                        </a>
+                        <br>
+                        <a href="https://maps.google.com/?q={{ page.address }}" target="_blank">
+                            <i class="fas fa-map-marker-alt"></i>
+                            {{ page.address|default:'вул. Соборна, 11, Рівне, Україна' }}
+                        </a>
+                        <br>
+                        <a href="mailto:{{ page.email }}">
+                            <i class="fas fa-envelope"></i>
+                            {{ page.email|default:'mail@nuwm.edu.ua' }}
+                        </a>
+                    </div>
+
+					{% if page.wallpaper %}
+						<img src="{{ page.wallpaper.url }}" alt="{{ page.title }}" class="img-fluid my-2 rounded">
+					{% endif %}
+
+					<p class="btn-group mb-3" role="group">
+						<button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+							Склад
+						</button>
+						<button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							Діяльність
+						</button>
+						<button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							Документи
+						</button>
+                        {% if page.children.exists %}
+                            <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                Детальніше
+                            </button>
+                        {% endif %}
+					</p>
+
+					<div id="accordionExample">
+						<div class="collapse" id="collapseOne" data-parent="#accordionExample">
+							<div class="card card-body">
+								<table class="table table-borderless table-sm">
+									<thead>
+										<tr>
+											<th>ПІП</th>
+											<th>Посада</th>
+                                            <th>Email</th>
+										</tr>
+									</thead>
+									<tbody>
+                                        {% for row in page.rows.all %}
+                                            <tr>
+                                                <td>{{ row.col1 }}</td>
+                                                <td>{{ row.col2 }}</td>
+                                                <td>{{ row.col3 }}</td>
+                                            </tr>
+                                        {% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					
+						<div class="collapse show" id="collapseTwo" data-parent="#accordionExample">
+							<div class="card card-body">
+                                <div class="tinymce-content-wrapper" style="position: relative; z-index: 1; overflow: hidden;">
+                                    <div class="tinymce-inner-content" style="position: relative; z-index: 1;">
+                                        {{ page.content|safe }}
+                                    </div>
+                                </div>
+							</div>
+						</div>
+					
+						<div class="collapse" id="collapseThree" data-parent="#accordionExample">
+							<div class="card card-body">
+								<h5 class="mb-3">Документи</h5>
+								<ul class="list-group mb-3">
+									{% for doc in page.docs.all %}
+										<li class="list-group-item d-flex justify-content-between align-items-center">
+											<a href="{{ doc.url }}">
+												<i class="fa fa-file-alt mr-2"></i>
+												{{ doc.title }}
+											</a>
+											<a href="{{ doc.url }}" class="btn btn-sm btn-outline-primary">
+												<i class="fa fa-external-link-alt"></i> Перейти
+											</a>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+
+                        {% if page.children.exists %}
+                            <div class="collapse" id="collapseFour" data-parent="#accordionExample">
+                                <div class="card card-body">
+                                    {% for child in page.children.all %}
+                                        <div>
+                                            <a href="{{ child.get_detail_url }}">
+                                                <i class="fa fa-chevron-right"></i>
+                                                {{ child.title }}
+                                            </a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}

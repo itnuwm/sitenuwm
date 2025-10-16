@@ -1,0 +1,131 @@
+# === IMPORTANT ===
+settings/config.py
+setup/
+migrations/
+
+# === PYTHON ===
+__init__.py
+__pycache__/
+*.pyc
+*.py[cod]
+*$py.class
+
+# === ENVIRONMENT ===
+.env
+.env.*      # For multiple environments like .env.dev, .env.prod
+.venv/
+venv/
+ENV/
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# === DJANGO ===
+*.sqlite3
+db.sqlite3
+*.log
+local_settings.py
+
+# Ignore Django migration history if desired (not recommended for teams)
+# Uncomment if you want to reset migrations regularly or generate them dynamically
+# **/migrations/*.py
+# **/migrations/*.pyc
+# !**/migrations/__init__.py
+
+# === STATIC & MEDIA ===
+staticfiles/
+static/template/assets/images/
+media/
+
+# === TESTING ===
+.coverage
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+coverage.xml
+nosetests.xml
+test_*.db
+
+# === IDEs / Editors ===
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# === OS / SYSTEM FILES ===
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === BUILD SYSTEMS ===
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# === PYCHARM ===
+__pycache__/
+*.py[cod]
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# === DOCKER ===
+*.pid
+*.seed
+*.pid.lock
+
+# === CELERY ===
+celerybeat-schedule
+celerybeat.pid
+
+# === NODE (optional, for frontend in project) ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+
+# === SASS/SCSS CACHE ===
+.sass-cache/
+.cache/
+
+# === TRANSLATION FILES (compiled) ===
+*.mo
+
+# === JUPYTER NOTEBOOK ===
+.ipynb_checkpoints/
+
+# === ENV FILE TRACKING ===
+.envrc
+
+# === GUNICORN / SUPERVISOR ===
+gunicorn.pid
+
+# === DATABASE BACKUPS ===
+#*.sql
+#*.dump
+
+# === ANSIBLE / TERRAFORM / INFRA (if used) ===
+*.retry
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# === HEROKU / PLATFORM FILES ===
+*.orig
+*.bak

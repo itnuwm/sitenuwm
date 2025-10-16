@@ -1,0 +1,87 @@
+<div class="header_top_menu pt-2 pb-2 bg_color">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-sm-8">
+        <div class="header_top_menu_address">
+          <div class="header_top_menu_address_inner">
+            <ul>
+              <li>
+                <a href="mailto:mail@nuwm.edu.ua">
+                  <i class="fa-regular fa-envelope"></i>
+                  mail@nuwm.edu.ua
+                </a>
+              </li>
+              <li>
+                <a href="https://maps.google.com/?q=вул. Соборна, 11, Рівне, Україна">
+                  <i class="fa-solid fa-location-dot"></i>
+                  вул. Соборна, 11, Рівне, Україна
+                </a>
+              </li>
+              <li>
+                <a href="tel:+380362633209">
+                  <i class="fa-solid fa-phone"></i>
+                  +38 (0362) 633209
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-sm-4">
+        <div class="header_top_menu_icon">
+          <div class="header_top_menu_icon_inner">
+            <ul>
+              <li>
+                <a href="https://www.facebook.com/www.nuwm.edu.ua/" target="_blank">
+                  <i class="fa-brands fa-square-facebook"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://twitter.com/nuwm_ua" target="_blank">
+                  <i class="fa-brands fa-twitter"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.tiktok.com/@nuwee_official" target="_blank">
+                  <i class="fa-brands fa-tiktok"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.youtube.com/channel/UCnL7wQSSLO3lBxXC33X37Yg" target="_blank">
+                  <i class="fa-brands fa-youtube"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/nuwee_official" target="_blank">
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+              </li>
+              <li>
+                <a href="{% url 'app_url' %}">
+                  <i class="fa-solid fa-mobile-screen"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://idoc.nuwm.edu.ua/login">
+                  <i class="fa-solid fa-file"></i>
+                </a>
+              </li>
+              <li>
+                {% if request.user.is_authenticated %}
+                  <a href="{% url 'logout_url' %}">
+                    Вийти
+                    ({{ request.user.username }})
+                  </a>
+                {% else %}
+                  <a href="{% url 'login_url' %}">
+                    Авторизація
+                  </a>
+                {% endif %}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+{% load static %}
+
+<div class="footer-middle pt-95 footer-bg">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-12 col-sm-4">
+        <div class="widget widget-nav-menu">
+          <!-- <h4 class="widget-title pb-4">Скринька довіри</h4> -->
+          <div class="menu-quick-link-container ml-4">
+            <div>
+              <a class="text-white" href="mailto:mail@nuwm.edu.ua">
+                <i class="fa-regular fa-envelope"></i>
+                mail@nuwm.edu.ua
+              </a>
+            </div>
+
+            <div>
+              <a class="text-white" href="https://maps.google.com/?q=вул. Соборна, 11, Рівне, Україна">
+                <i class="fa-solid fa-location-dot"></i>
+                вул. Соборна, 11, Рівне, Україна
+              </a>
+            </div>
+
+            <div>
+              <a class="text-white" href="tel:+380362633209">
+                <i class="fa-solid fa-phone"></i>
+                +38 (0362) 633209
+              </a>
+            </div>
+            <div><a class="text-white" href="https://goo.gl/maps/9qrVBmQYGP7kVKLV8">Наші координати</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-4">
+        <div class="widget widgets-company-info">
+          <div class="footer-bottom-logo pb-40">
+            <a href="{% url 'login_url' %}">
+              <img class="img-fluid mt-3" src="{% static 'template/images/nuwee-100o.png' %}" alt="Національний університет водного господарства та природокористування">
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-12 col-sm-4">
+        <div class="widget widget-nav-menu">
+          <div class="menu-quick-link-container ml-4">
+            <div><a class="text-white" href="https://docs.google.com/forms/d/13Q_Yugv6kdEkKmRrjN4z-krJG3s6ggfNm_z5WWUeMIY">Скринька довіри</a></div>
+            <div><a class="text-white" href="https://docs.google.com/forms/d/1N7utUi_UYVaVw7kqFT94rfH4W4YBrYLfufp1GpTAMgI">Повідомити про корупцію</a></div>
+            <div><a class="text-white" href="javascript:void(0);">Технічна підтримка</a></div>
+            <div><a class="text-white" href="javascript:void(0);">Контакти</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row footer-bottom mt-70 pt-3 pb-1">
+      <div class="col-md-7">
+        <div class="footer-bottom-content">
+          <div class="footer-bottom-content-copy">
+            <p>© 2025 Національний університет водного господарства та природокористування</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="footer-bottom-right">
+          <div class="footer-bottom-right-text">
+            <a href="{% url 'privacy_policy_url' %}">Умови використання та політика конфіденційності</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
