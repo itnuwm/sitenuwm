@@ -2911,7 +2911,8 @@ a.em-active-button:hover {
 .section_sub_title h6 {
   letter-spacing: 5px;
   color: #256589;
-  font-size: 16px;
+  font-size: 14px;
+    font-weight: 400;
 }
 .section_title.text_center {
   text-align: center;
@@ -12599,7 +12600,8 @@ p.seo-text1 {
   color: #256589;
 }
 .contact_address_title h4 {
-  font-weight: 700;
+  font-weight: 600;
+    font-size: 18px;
 }
 .single_contact_address_two {
   background: #fff;

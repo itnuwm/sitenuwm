@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+	<div class="blog_area blog-grid left-sidebar pb-80" id="blog">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<nav aria-label="breadcrumb" class="mb-4">
+						<ol class="breadcrumb bg-white px-3 py-2 rounded shadow-sm">
+							<li class="breadcrumb-item">
+								<a href="/"><i class="fa fa-home"></i> Головна</a>
+							</li>
+							{% if page.parent %}
+								{% include 'pages/breadcrumb.html' with page=page.parent %}
+							{% endif %}
+							<li class="breadcrumb-item active" aria-current="page">
+								{{ page.title }}
+							</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="row">
+						<div class="col">
+							{% if page.admin == user or user.is_superuser %}
+								<small>
+									<a class="text-muted" href="{{ page.get_edit_url }}">
+										<i class="fa fa-edit"></i>
+										Редагувати сторінку
+									</a>
+								</small>
+							{% endif %}
+						</div>
+						<div class="col" align="right"></div>
+					</div>
+
+					<h3 class="mb-3">{{ page.title }}</h3>
+
+					{% if page.wallpaper %}
+						<img src="{{ page.wallpaper.url }}" alt="{{ page.title }}" class="img-fluid">
+					{% endif %}
+
+					{% if page.content %}
+						{{ page.content|safe }}
+					{% endif %}
+
+					{% if page.rows.exists %}
+						<!-- <h4>Таблиця:</h4> -->
+						<table class="table table-sm table-hover mt-3">
+							{% for row in page.rows.all %}
+								<tr>
+									<td>{{ row.col1 }}</td>
+									<td>{{ row.col2 }}</td>
+									<td>{{ row.col3 }}</td>
+								</tr>
+							{% endfor %}
+						</table>
+					{% endif %}
+
+					{% if page.docs.exists %}
+						<!-- <h4>Таблиця:</h4> -->
+						<ul class="list-group mb-3">
+							{% for doc in page.docs.all %}
+								<li class="list-group-item d-flex justify-content-between align-items-center">
+									<a href="{{ doc.url }}">
+										<i class="fa fa-file-alt mr-2"></i>
+										{{ doc.title }}
+									</a>
+									<a href="{{ doc.url }}" class="btn btn-sm btn-outline-primary" target="_blank">
+										<i class="fa fa-external-link-alt"></i> Перейти
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+
+					{% for child in page.children.all %}
+                        <div>
+                            <a href="{{ child.get_detail_url }}">
+                                <i class="fa fa-chevron-right"></i>
+                                {{ child.title }}
+                            </a>
+                        </div>
+                    {% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}{% endblock %}

@@ -85,7 +85,7 @@ class WebpageAdminForm(forms.ModelForm):
 class WebpageForm(forms.ModelForm):
     class Meta:
         model = Webpage
-        fields = ['parent', 'title', 'phone', 'email', 'address', 'wallpaper', 'content']
+        fields = ['parent', 'title', 'phone', 'email', 'address', 'wallpaper', 'content', 'content_2']
         widgets = {
             'parent': forms.HiddenInput(),
             'title': forms.TextInput(attrs={'class': 'form-control form-control-sm'}),
@@ -94,6 +94,7 @@ class WebpageForm(forms.ModelForm):
             'address': forms.TextInput(attrs={'class': 'form-control form-control-sm'}),
             'wallpaper': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
             'content': TinyMCE(attrs={'class': 'form-control form-control-sm', 'cols': 80, 'rows': 10}),
+            'content_2': TinyMCE(attrs={'class': 'form-control form-control-sm', 'cols': 80, 'rows': 10}),
         }
         labels = {
             'parent': '',
@@ -103,6 +104,7 @@ class WebpageForm(forms.ModelForm):
             'address': 'Адреса',
             'wallpaper': 'Основне зображення',
             'content': 'Вміст',
+            'content_2': 'Вміст 2',
         }
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

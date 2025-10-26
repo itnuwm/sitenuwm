@@ -1,0 +1,107 @@
+.breadcrumb {
+    display: flex;
+    align-items: center;
+}
+.breadcrumb-item.active,
+.breadcrumb-item a {
+    font-size: 13px;
+}
+.menu > ul > li > ul.normal-sub > li a {
+    font-size: 15px;
+    text-transform: none;
+}
+.menu > ul > li a {
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+.header_top_menu_address_inner ul li a i,
+.header_top_menu_address_inner ul li a{
+    color: #256589;
+    font-size: 13px;
+}
+.header_top_menu{
+    background: transparent;
+}
+.header_top_menu_icon_inner ul li a{
+    color: #256589;
+}
+.techno_nav_manu{
+    background: transparent!important;
+}
+body{
+    background: url("/static/template/images/pattern_nuwm.jpg")!important;
+    background-repeat: inherit;
+    background-size: inherit;
+    background-attachment: fixed;
+    background-position: 0 0;
+}
+body .header_top_menu.bg_color{
+    padding: 0!important;
+    margin: 0;
+}
+body .header_top_menu.bg_color > .container{
+    padding: 7px 0!important;
+}
+body .header_top_menu.bg_color > .container,
+body .techno_nav_manu > .container{
+    background: #fff;
+}
+.container-wrapper{
+    max-width: 1200px;
+    margin: 0 auto;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    background: #fff;
+}
+.container{
+    padding: 0;
+}
+h3{
+    font-size: 23px;
+    font-weight: 400;
+    font-family: Roboto,"Helvetica Neue";
+}
+.section_main_title h1, .section_main_title h2{
+    font-weight: 400;
+}
+h1{
+    font-size: 30px;
+    font-weight: 400;
+    font-family: Roboto,"Helvetica Neue";
+}
+.blog-left-side .widget h2{
+    font-weight: 400;
+    font-family: Roboto,"Helvetica Neue";
+
+}
+body{
+    font-family: Roboto,"Helvetica Neue";
+    font-size: 15px;
+}
+.big-icon svg{
+    width: 50px;
+}
+.big-icon{
+    color: #256589;
+}
+.footer-bottom-right-text a,
+.footer-bottom-content-copy{
+    font-size: 12px;
+}
+.footer_top_menu_icon_inner ul li a i,
+.footer_top_menu_icon_inner ul li a{
+    font-size: 18px;
+    color: #fff;
+}
+.footer_top_menu_icon_inner ul li{
+
+}
+.footer_top_menu_icon_inner{
+    display: table;
+    margin: 0 auto 20px;
+}
+.footer_top_menu_icon_inner ul{
+    display: flex;
+    gap: 10px;
+    list-style: none;
+}

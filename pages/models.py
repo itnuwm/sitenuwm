@@ -42,6 +42,9 @@ class Webpage(models.Model):
     COUNCIL = 'council'
     CUSTOM_DETAIL = 'custom_detail'
     CUSTOM_LIST = 'custom_list'
+    PERSON_DETAIL = 'person_detail'
+    FULL_WIDTH_DETAIL = 'full_width_detail'
+
     DESIGN_CHOICES = (
         (BASIC_DETAIL, 'Basic Detail'),
         (BASIC_WITH_TABS, 'Basic With Tabs'),
@@ -53,6 +56,8 @@ class Webpage(models.Model):
         (COUNCIL, 'Вчена рада'),
         (CUSTOM_DETAIL, 'Custom Detail'),
         (CUSTOM_LIST, 'Custom List'),
+        (PERSON_DETAIL, 'Person Detail'),
+        (FULL_WIDTH_DETAIL, 'Full Width Detail'),
     )
     # For IT department
     parent = models.ForeignKey('self', on_delete=models.PROTECT, related_name='children', null=True, blank=True)
@@ -70,6 +75,7 @@ class Webpage(models.Model):
     email = models.CharField(max_length=255, blank=True, default='')
     address = models.CharField(max_length=255, blank=True, default='')
     content = HTMLField(blank=True, default='')
+    content_2 = HTMLField(blank=True, default='')
 
     class Meta:
         ordering = ['id']

@@ -3,6 +3,9 @@ settings/config.py
 setup/
 migrations/
 
+# === PROJECT SPECYFIC ===
+files/
+
 # === PYTHON ===
 __init__.py
 __pycache__/
