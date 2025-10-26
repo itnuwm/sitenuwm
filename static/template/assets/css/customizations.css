@@ -56,6 +56,11 @@ body .techno_nav_manu > .container{
 .container{
     padding: 0;
 }
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px; /* for tablets and mobile */
+    }
+}
 h3{
     font-size: 23px;
     font-weight: 400;
