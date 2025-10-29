@@ -28,6 +28,7 @@ urlpatterns = [
     
     path('page/', include('pages.urls', namespace='page')),
     path('adminka/', include('adminka.urls', namespace='adminka')),
+    path('blog/', include('blog.urls', namespace='blog')),
     path('admin/', admin.site.urls),    
 
     path('<slug:slug>/', pages.layer_1_view),

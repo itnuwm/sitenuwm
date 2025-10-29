@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+<div class="blog_area blog-grid left-sidebar pb-80" id="blog">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<nav aria-label="breadcrumb" class="mb-4">
+					<ol class="breadcrumb bg-white px-3 py-2 rounded shadow-sm">
+						<li class="breadcrumb-item">
+							<a href="/"><i class="fa fa-home"></i> Головна</a>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">
+							Блог
+						</li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<h3 class="mb-4">Блог</h3>
+				
+				<div class="row">
+					{% for post in posts %}
+					<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-4">
+						<div class="card h-100 shadow-sm">
+							<div class="card-body">
+								<div class="techno_blog_meta mb-2">
+									<span class="text-muted">
+										<i class="fa fa-calendar"></i> {{ post.published_date|date:"d.m.Y" }}
+									</span>
+									<span class="text-muted ml-3">
+										<i class="fa fa-user"></i> {{ post.author.get_full_name|default:post.author.username }}
+									</span>
+								</div>
+								<h5 class="card-title">
+									<a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+								</h5>
+								{% if post.content %}
+								<p class="card-text">
+									{{ post.content|striptags|truncatechars:150|safe }}
+								</p>
+								{% endif %}
+								<a href="{{ post.get_absolute_url }}" class="btn btn-primary btn-sm">
+									Читати далі <i class="fa fa-arrow-right"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+					{% empty %}
+					<div class="col-12">
+						<div class="alert alert-info">
+							<p class="mb-0">Поки що немає публікацій.</p>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block javascript %}{% endblock %}
+

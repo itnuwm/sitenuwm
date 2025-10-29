@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # Local Apps:
     'adminka',
     'pages',
+    'blog',
     'system',
 ]
 
