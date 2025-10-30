@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     # 3rd Party Apps:
     'tinymce',
+    'django_resized',
 
     # Local Apps:
     'adminka',

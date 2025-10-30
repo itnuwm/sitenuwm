@@ -1,0 +1,73 @@
+{% load static %}
+<div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 sidebar-right content-widget pdsr">
+    <div class="blog-left-side widget">
+        <div id="em_recent_post_widget-6" class="widget widget_recent_data">
+            <div class="single-widget-item">
+                <h2 class="widget-title">Оголошення</h2>
+                {% for post in announcements %}
+                    <div class="recent-post-item">
+                        <div class="recent-post-image">
+                            <a href="{{ post.get_absolute_url }}">
+                                <img width="100" height="75" src="{{ post.wallpaper.url }}" alt="{{ post.title }}">
+                            </a>
+                        </div>
+                        <div class="recent-post-text">
+                            <h4>
+                                <a href="{{ post.get_absolute_url }}"> {{ post.title }} </a>
+                            </h4>
+                            <span class="rcomment">{{ post.date_published|date:"d.m.Y" }}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div id="categories-3" class="widget widget_categories">
+            <h2 class="widget-title">Категорії</h2>
+            <ul>
+                <li class="cat-item cat-item-8">
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-youtube-play"></i>
+                        Новини
+                        <span>({{ news.count }})</span>
+                    </a>
+                </li>
+                <li class="cat-item cat-item-10">
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-youtube-play"></i>
+                        Оголошення
+                        <span>({{ announcements.count }})</span>
+                    </a>
+                </li>
+                <li class="cat-item cat-item-10">
+                    <a href="javascript:void(0);">
+                        <i class="fa fa-youtube-play"></i>
+                        Чернетки
+                        <span>({{ drafts.count }})</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+     
+        <div class="widget_about widget sn_bd_dtl_wd">
+            <h2 class="widget-title">Про редактора</h2>
+            <div class="widget_about_thumb">
+                <img src="{% static 'template/images/blog/testi2.png' %}" alt="" />
+            </div>
+            <div class="widget_about_content">
+                <h5>Прізвище Оксана Батьківна</h5>
+                <p>
+                    Lorem ipsum dolor sit amet site, compnay business elit, sed
+                    do tempor incididunt ut labore thats is great.
+                </p>
+            </div>
+            <div class="widget_about_icon">
+                <a href="javascript:void(0);"><i class="bi bi-facebook"></i></a>
+                <a href="javascript:void(0);"><i class="bi bi-twitter-x"></i></a>
+                <a href="javascript:void(0);"><i class="bi bi-instagram"></i></a>
+                <a href="javascript:void(0);"><i class="bi bi-behance"></i></a>
+                <a href="javascript:void(0);"><i class="bi bi-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,59 +4,131 @@
 {% block css %}{% endblock %}
 
 {% block content %}
-<div class="blog_area blog-grid left-sidebar pb-80" id="blog">
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<nav aria-label="breadcrumb" class="mb-4">
-					<ol class="breadcrumb bg-white px-3 py-2 rounded shadow-sm">
-						<li class="breadcrumb-item">
-							<a href="/"><i class="fa fa-home"></i> Головна</a>
-						</li>
-						<li class="breadcrumb-item">
-							<a href="{% url 'blog:post_list' %}">Блог</a>
-						</li>
-						<li class="breadcrumb-item active" aria-current="page">
-							{{ post.title }}
-						</li>
-					</ol>
-				</nav>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-lg-8 col-md-10 col-sm-12 col-xs-12 mx-auto">
-				<article class="card shadow-sm">
-					<div class="card-body">
-						<div class="techno_blog_meta mb-3">
-							<span class="text-muted">
-								<i class="fa fa-calendar"></i> {{ post.published_date|date:"d.m.Y" }}
-							</span>
-							<span class="text-muted ml-3">
-								<i class="fa fa-user"></i> {{ post.author.get_full_name|default:post.author.username }}
-							</span>
-						</div>
-						
-						<h1 class="mb-4">{{ post.title }}</h1>
-						
-						{% if post.content %}
-						<div class="post-content">
-							{{ post.content|safe }}
-						</div>
-						{% endif %}
-						
-						<div class="mt-4 pt-3 border-top">
-							<a href="{% url 'blog:post_list' %}" class="btn btn-secondary">
-								<i class="fa fa-arrow-left"></i> Назад до списку
-							</a>
-						</div>
+		<!-- BLOG AREA -->
+		<div class="blog_area blog-grid left-sidebar pb-80" id="blog">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<nav aria-label="breadcrumb" class="mb-4">
+							<ol class="breadcrumb bg-white px-3 py-2 rounded shadow-sm">
+								<li class="breadcrumb-item">
+									<a href="/"><i class="fa fa-home"></i> Головна</a>
+								</li>
+								<li class="breadcrumb-item">
+									<a href="{% url 'blog:post_list' %}"><i class="fa fa-newspaper-o"></i> Новини, оголошення</a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">
+									{{ post.title }}
+								</li>
+							</ol>
+						</nav>
 					</div>
-				</article>
+				</div>
+
+				<div class="row">
+					{% include 'blog/sidebar.html' %}
+
+					<div class="col-lg-8 col-md-7 col-sm-12 col-xs-12">
+						<div class="row">
+							<div class="col-md-12">
+							<div class="blog_details">
+								<div class="blog_dtl_thumb">
+								<img src="{{ post.wallpaper.url }}" alt="{{ post.title }}" />
+								</div>
+			
+								<div class="blog_dtl_content">
+								<div class="blog_dtl_top_bs pt-2">
+									<span>Business</span>
+								</div>
+								<h2>Business contents insurance is a type of business insurance that can protect</h2>
+								<!-- BLOG META -->
+								<div class="techno-blog-meta">
+									<div class="techno-blog-meta-left">
+									<span><i class="fa fa-calendar"></i>10 Mar 2023 </span>
+									<span
+										><i class="fa fa-comments-o"></i>20 Comments
+									</span>
+									<span><i class="fa fa-thumbs-up"></i>39 Like </span>
+									</div>
+								</div>
+								<p>
+									Lorem ipsum dolor sit amet consectet adipisie cing elit
+									sed eiusmod tempor incididunt on labore et dolore. Ut enim
+									ad minim veniam, quis nostrud exercitation ullamco laboris
+									nisi ut aliquip ex ea commodo.
+								</p>
+								<p>
+									Bccaecat cupidatat non proident, sunt in culpa qui officia
+									deserunt mollit anim id est there laborum. Sed ut
+									perspiciatis unde omnis iste natus error sit voluptatem
+									accusantium ware doloremque laudantium, totam rem aperiam,
+									eaque ipsa quae ab illo inventore veritatis et quasi
+									architecto beatae vitae dicta sunt explicabo. Nemo enim
+									ipsam voluptatem quia on voluptas sit aspernatur aut odit
+									aut fugit, sed quia consequuntur magni dolores eos query
+									ratione voluptatem sequi nesciunt. Neque porro quisquam
+								</p>
+								<p>
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+									sed do eiusmod tempor dolor an incididunt ut labore et
+									dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+									there exercitation ullamco laboris nisi ut aliquip ex ea
+									commodo consequat. Duis aute irure poor dolor in
+									reprehenderit in voluptate velit esse cillum
+								</p>
+			
+								<div class="blog_dtl_thumb pt-3"><img src="{% static 'template/images/blog/blog2.jpg' %}" alt="" /></div>
+								<h3>A cleansing hot shower or bath</h3>
+								<p>
+									Contrary to popular belief, Lorem Ipsum is not simply
+									random text. It has roots in a piece of classical on Latin
+									literature from 45 BC, making it over 2000 years old.
+									Richard McClintock, a Latin professor at thes
+									Hampden-Sydney College in Virginia, looked up one of the
+									more obscure Latin words, consectetur, from a Lorem Ipsum
+									passage, and going through the cites
+								</p>
+								<blockquote>
+									Richard McClintock, a Latin professor at thes
+									Hampden-Sydney College in Virginia, looked up one of the
+									more obscure Latin words, consectetur, from a Lorem Ipsum
+									passage, and going through the cites dorem awesme loren
+									very creative
+									<p class="signatures"><span>Mr. Aleck Jonder</span></p>
+								</blockquote>
+								<div class="blog_dt_title mb-4">
+									<h4>Setting the mood with incense</h4>
+								</div>
+								<p>
+									Contrary to popular belief, Lorem Ipsum is not simply
+									random text. It has roots in a piece of classical on Latin
+									literature from 45 BC, making it over 2000 years old.
+									Richard McClintock, a Latin professor at thes
+									Hampden-Sydney College in Virginia, looked up one of the
+									more obscure Latin words, consectetur, from a Lorem Ipsum
+									passage, and going through the cites
+								</p>
+			
+								<div class="blog_details_dtn_icon">
+								<a href="#"><i class="bi bi-facebook"></i></a>
+								<a href="#"><i class="bi bi-linkedin"></i></a>
+								<a href="#"><i class="bi bi-twitter-x"></i></a>
+								<a href="#"><i class="bi bi-instagram"></i></a>
+								<a href="#"><i class="bi bi-pinterest"></i></a>
+								<a href="#"><i class="bi bi-reddit"></i></a>
+								</div>
+								</div>
+							</div>
+							</div>
+							
+						</div>
+
+						
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-</div>
+		<!-- BLOG_AREA END -->
 {% endblock %}
 
 {% block javascript %}{% endblock %}
-
