@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}{% endblock %}
+
+{% block content %}
+		<!-- BLOG AREA -->
+		<div class="blog_area blog-grid left-sidebar pb-80" id="blog">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<nav aria-label="breadcrumb" class="mb-4">
+							<ol class="breadcrumb bg-white px-3 py-2 rounded shadow-sm">
+								<li class="breadcrumb-item">
+									<a href="/"><i class="fa fa-home"></i> Головна</a>
+								</li>
+								<li class="breadcrumb-item">
+									<a href="{% url 'blog:post_list' %}"><i class="fa fa-newspaper-o"></i> Новини, оголошення</a>
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">
+									Додати новину/оголошення
+								</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+
+				<div class="row">
+					{% include 'blog/sidebar.html' %}
+
+					<div class="col-lg-8 col-md-7 col-sm-12 col-xs-12">
+						{{ form.media }}
+						<form method="post" enctype="multipart/form-data">
+							{% csrf_token %}
+							{% for field in form %}
+								{% if field.field.widget.input_type == 'checkbox' %}
+									<div class="custom-control custom-switch mb-2">
+										{{ field }}
+										<label class="custom-control-label text-primary" for="{{ field.id_for_label }}">
+											<b>{{ field.label }}</b>
+										</label>
+									</div>
+								{% else %}
+									<div class="form-group">
+										<label class="text-primary" for="{{ field.id_for_label }}">{{ field.label }}</label>
+										{{ field }}
+										
+										{% for error in field.errors %}
+											<div class="text-danger">{{ error }}</div>
+										{% endfor %}
+									</div>
+								{% endif%}
+							{% endfor %}
+							<button type="submit" class="btn btn-primary mt-4 float-right">Зберегти</button>
+							<a href="{% url 'blog:post_list' %}" class="btn btn-secondary">Відміна</a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- BLOG_AREA END -->
+{% endblock %}
+
+{% block javascript %}{% endblock %}
